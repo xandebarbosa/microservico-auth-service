@@ -1,0 +1,17 @@
+networks:
+  radares-net:
+    external: true
+
+services:
+  auth-service:
+    container_name: auth-service
+    build: .
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - radares-net
+    restart: unless-stopped
